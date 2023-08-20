@@ -1,6 +1,22 @@
 import moment from "moment";
 import { reservations } from "../../utils/reservations";
 
+const Headers = () => {
+  return (
+    <tr>
+      <th>
+        <label>
+          <input type="checkbox" className="checkbox" />
+        </label>
+      </th>
+      <th>Nombre</th>
+      <th>Fecha</th>
+      <th>Habitacion</th>
+      <th></th>
+    </tr>
+  );
+};
+
 export const ReservationsView = () => {
   return (
     <>
@@ -9,17 +25,7 @@ export const ReservationsView = () => {
         <table className="table">
           {/* head */}
           <thead>
-            <tr>
-              <th>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
-              <th>Nombre</th>
-              <th>Fecha</th>
-              <th>Habitacion</th>
-              <th></th>
-            </tr>
+            <Headers />
           </thead>
           <tbody>
             {reservations.map((reservation, i) => (
@@ -67,13 +73,7 @@ export const ReservationsView = () => {
             ))}
           </tbody>
           <tfoot>
-            <tr>
-              <th></th>
-              <th>Nombre</th>
-              <th>Fecha</th>
-              <th>Habitacion</th>
-              <th></th>
-            </tr>
+            <Headers />
           </tfoot>
         </table>
       </div>
