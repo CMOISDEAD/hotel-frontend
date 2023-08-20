@@ -1,23 +1,14 @@
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { IoPricetagOutline } from "react-icons/io5";
 import { BsPeople } from "react-icons/bs";
-import { RoomsModal } from "./RoomsModal";
 
-export const Rooms = ({ room }) => {
-  const { id, name, description, capacity, price, image, status, aviable } =
-    room;
-  const handleModal = () => {
-    window[id].showModal();
-  };
-
+export const RoomsModal = ({ id, room }) => {
+  const { name, description, capacity, price, image, status, aviable } = room;
   return (
-    <>
-      <div className="card border border-base-200 shadow-xl" key={id}>
-        <figure>
-          <img src={image} alt={name} className="h-72 w-full object-cover" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{name}</h2>
+    <dialog id={id} className="modal">
+      <form method="dialog" className="modal-box">
+        <h3 className="text-lg font-bold">{name}</h3>
+        <p className="py-4">
           <ul>
             <li className="flex content-center items-center gap-2">
               <p className="truncate">{description}</p>
@@ -39,17 +30,11 @@ export const Rooms = ({ room }) => {
               {status}
             </li>
           </ul>
-          <div className="card-actions justify-end">
-            <button className="btn btn-secondary" onClick={handleModal}>
-              Detalles
-            </button>
-            <button className="btn btn-primary" disabled={!aviable}>
-              Reservar
-            </button>
-          </div>
-        </div>
-      </div>
-      <RoomsModal id={id} room={room} />
-    </>
+        </p>
+      </form>
+      <form method="dialog" className="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
   );
 };
