@@ -8,7 +8,7 @@ export const RoomsModal = ({ id, room }) => {
     <dialog id={id} className="modal">
       <form method="dialog" className="modal-box">
         <h3 className="text-lg font-bold">{name}</h3>
-        <p className="py-4">
+        <div className="py-4">
           <ul>
             <li className="flex content-center items-center gap-2">
               <p className="truncate">{description}</p>
@@ -30,7 +30,7 @@ export const RoomsModal = ({ id, room }) => {
               {status}
             </li>
           </ul>
-        </p>
+        </div>
       </form>
       <form method="dialog" className="modal-backdrop">
         <button>close</button>

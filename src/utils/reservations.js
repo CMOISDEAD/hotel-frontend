@@ -1,0 +1,26 @@
+export const reservations = [
+  {
+    id: 1,
+    image: "https://daisyui.com/tailwind-css-component-profile-2@56w.png",
+    name: "Hart Hagerty",
+    number: "3239891507",
+    email: "Hart@ibm.com",
+    checkIn: "2023-09-01",
+    numberNights: 3,
+    state: "active",
+    room: 214,
+    numberGuests: 2,
+  },
+  {
+    id: 2,
+    image: "https://daisyui.com/tailwind-css-component-profile-3@56w.png",
+    name: "Carroll Group",
+    number: "3127896557",
+    email: "carroll@ibm.com",
+    checkIn: "2023-08-23",
+    numberNights: 2,
+    state: "active",
+    room: 215,
+    numberGuests: 2,
+  },
+];
