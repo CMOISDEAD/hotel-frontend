@@ -4,17 +4,17 @@ const stateList = [
   { name: "ocupado", title: "Ocupados/Cerrados" },
 ];
 
-export const RoomsFilter = ({filter, active, count}) => {
+export const RoomsFilter = ({ filter, active, count }) => {
   return (
-    <div className="tabs-boxed tabs">
+    <div className="tabs tabs-boxed">
       {stateList.map(({ name, title }, i) => (
         <a
           key={i}
           className={`tab ${active === name && "tab-active"} inline-flex gap-1`}
+          data-name={name}
           onClick={filter}
         >
-          <p data-name={name}>{title}</p>
-          {active === name && <div className="badge">{count}</div>}
+          {title} {active === name && <div className="badge">{count}</div>}
         </a>
       ))}
     </div>
