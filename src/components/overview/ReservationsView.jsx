@@ -23,7 +23,6 @@ export const ReservationsView = () => {
       <h5 className="my-2 text-xl font-bold">Reservaciones</h5>
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead>
             <Headers />
           </thead>
@@ -72,9 +71,6 @@ export const ReservationsView = () => {
               </tr>
             ))}
           </tbody>
-          <tfoot>
-            <Headers />
-          </tfoot>
         </table>
       </div>
     </>
