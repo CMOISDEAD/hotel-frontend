@@ -1,6 +1,6 @@
-import { BedsViews } from "./BedsView";
-import { ReservationsView } from "./ReservationsView";
-import { RoomsView } from "./RoomsView";
+import { BedsViews } from "./beds/BedsView";
+import { ReservationsView } from "./reservations/ReservationsView";
+import { RoomsView } from "./rooms/RoomsView";
 
 export const Overview = () => {
   return (

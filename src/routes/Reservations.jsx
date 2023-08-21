@@ -1,4 +1,4 @@
-import { ReservationsView } from "../components/overview/ReservationsView";
+import { ReservationsView } from "../components/reservations/ReservationsView";
 import { Layout } from "../layouts/Layout";
 
 export const Reservations = () => {

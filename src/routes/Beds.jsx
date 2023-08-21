@@ -1,4 +1,4 @@
-import { BedsViews } from "../components/overview/BedsView";
+import { BedsViews } from "../components/beds/BedsView";
 import { Layout } from "../layouts/Layout";
 
 export const Beds = () => {

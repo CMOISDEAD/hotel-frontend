@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Rooms } from "../Rooms";
+import { Rooms } from "./Rooms";
 import { RoomsFilter } from "./RoomsFilter";
 import { rooms } from "../../utils/rooms";
 
