@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
@@ -24,19 +26,28 @@ export const Navbar = () => {
             className="menu dropdown-content rounded-box menu-sm z-[1] mt-3 w-52 bg-base-100 p-2 shadow"
           >
             <li>
-              <a>Reservaciones</a>
+              <Link to="/">Principal</Link>
             </li>
             <li>
-              <a>Habitaciones</a>
+              <Link to="/reservaciones">Reservaciones</Link>
             </li>
             <li>
-              <a>Clientes</a>
+              <Link to="/cuartos">Cuartos</Link>
+            </li>
+            <li>
+              <Link to="/camas">Camas</Link>
+            </li>
+
+            <li>
+              <Link to="/clientes">Clientes</Link>
             </li>
           </ul>
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl normal-case">Hotels Cocora</a>
+        <Link className="btn btn-ghost text-xl normal-case" to="/">
+          Hotels Cocora
+        </Link>
       </div>
       <div className="navbar-end">
         <button className="btn btn-circle btn-ghost">

@@ -9,7 +9,6 @@ export const Overview = () => {
       <ReservationsView />
       <RoomsView />
       <BedsViews />
-      <h5 className="my-2 text-xl font-bold">Clientes</h5>
     </>
   );
 };
