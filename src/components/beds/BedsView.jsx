@@ -1,6 +1,19 @@
-import { beds } from "../../utils/beds";
+import { useState, useEffect } from "react";
+import useHotelStore from "../../store/store";
+import { AddBed } from "./addBed";
 
 export const BedsViews = () => {
+  const [bedsList, setBedsList] = useState([]);
+  const beds = useHotelStore((state) => state.beds);
+
+  useEffect(() => {
+    setBedsList(beds);
+  }, [beds]);
+
+  const handleAdd = () => {
+    window.createBed.showModal();
+  };
+
   return (
     <>
       <h5 className="my-2 text-xl font-bold">Camas</h5>
@@ -8,17 +21,24 @@ export const BedsViews = () => {
         <table className="table">
           <thead>
             <tr>
-              <th>id</th>
+              <th>
+                <button
+                  className="btn btn-circle btn-primary"
+                  onClick={handleAdd}
+                >
+                  +
+                </button>
+              </th>
               <th>Tipo</th>
               <th>Lugar Actual</th>
               <th>Estado</th>
             </tr>
           </thead>
           <tbody>
-            {beds.map(({ id, type, place, status }) => (
+            {bedsList.map(({ id, type, place, status, active }) => (
               <tr
                 className={`${
-                  status !== "disponible"
+                  active !== true
                     ? "bg-warning/25 hover:bg-warning/50"
                     : "hover:bg-base-200"
                 } cursor-pointer transition-colors`}
@@ -33,6 +53,7 @@ export const BedsViews = () => {
           </tbody>
         </table>
       </div>
+      <AddBed />
     </>
   );
 };

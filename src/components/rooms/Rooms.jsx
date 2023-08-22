@@ -4,8 +4,9 @@ import { BsPeople } from "react-icons/bs";
 import { RoomsModal } from "./RoomsModal";
 
 export const Rooms = ({ room }) => {
-  const { id, name, description, capacity, price, image, status, aviable } =
+  const { id, number, description, capacity, price, photo, status, active } =
     room;
+
   const handleModal = () => {
     window[id].showModal();
   };
@@ -14,10 +15,10 @@ export const Rooms = ({ room }) => {
     <>
       <div className="card border border-base-200 shadow-xl" key={id}>
         <figure>
-          <img src={image} alt={name} className="h-72 w-full object-cover" />
+          <img src={photo} alt={number} className="h-72 w-full object-cover" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{name}</h2>
+          <h2 className="card-title">{number}</h2>
           <ul>
             <li className="flex content-center items-center gap-2">
               <p className="truncate">{description}</p>
@@ -31,7 +32,7 @@ export const Rooms = ({ room }) => {
               {price} $
             </li>
             <li className="flex content-center items-center gap-2">
-              {aviable ? (
+              {active ? (
                 <AiOutlineCheckCircle className="text-green-600" />
               ) : (
                 <AiOutlineCloseCircle className="text-red-500" />
@@ -43,7 +44,7 @@ export const Rooms = ({ room }) => {
             <button className="btn btn-secondary" onClick={handleModal}>
               Detalles
             </button>
-            <button className="btn btn-primary" disabled={!aviable}>
+            <button className="btn btn-primary" disabled={!active}>
               Reservar
             </button>
           </div>

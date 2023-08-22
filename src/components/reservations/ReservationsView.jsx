@@ -1,33 +1,43 @@
+import { useState, useEffect } from "react";
+import useHotelStore from "../../store/store";
 import moment from "moment";
-import { reservations } from "../../utils/reservations";
-
-const Headers = () => {
-  return (
-    <tr>
-      <th>
-        <label>
-          <input type="checkbox" className="checkbox" />
-        </label>
-      </th>
-      <th>Nombre</th>
-      <th>Fecha</th>
-      <th>Habitacion</th>
-      <th></th>
-    </tr>
-  );
-};
+import { AddReservation } from "./AddReservation";
 
 export const ReservationsView = () => {
+  const [reservationsList, setReservationsList] = useState([]);
+  const reservations = useHotelStore((state) => state.reservations);
+
+  useEffect(() => {
+    setReservationsList(reservations);
+  }, [reservations]);
+
+  const handleAdd = () => {
+    window.addReservation.showModal();
+  };
+
   return (
     <>
       <h5 className="my-2 text-xl font-bold">Reservaciones</h5>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
-            <Headers />
+            <tr>
+              <th>
+                <button
+                  className="btn btn-circle btn-primary"
+                  onClick={handleAdd}
+                >
+                  +
+                </button>
+              </th>
+              <th>Nombre</th>
+              <th>Fecha</th>
+              <th>Habitacion</th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
-            {reservations.map((reservation, i) => (
+            {reservationsList.map((reservation, i) => (
               <tr key={i}>
                 <th>
                   <label>
@@ -73,6 +83,7 @@ export const ReservationsView = () => {
           </tbody>
         </table>
       </div>
+      <AddReservation />
     </>
   );
 };

@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useHotelStore from "../../store/store";
 import { Rooms } from "./Rooms";
 import { RoomsFilter } from "./RoomsFilter";
-import { rooms } from "../../utils/rooms";
+import { Placeholder } from "./Placeholder";
 
 export const RoomsView = () => {
   const [active, setActive] = useState("all");
-  const [listRooms, setListRooms] = useState(rooms);
+  const [listRooms, setListRooms] = useState([]);
+  const rooms = useHotelStore((state) => state.rooms);
+
+  useEffect(() => {
+    setListRooms(rooms);
+  }, [rooms]);
 
   const handleFilter = (e) => {
     const name = e.target.dataset.name;
@@ -27,9 +33,11 @@ export const RoomsView = () => {
         count={listRooms.length}
       />
       <div className="my-5 grid grid-flow-row grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {listRooms.map((room, i) => (
-          <Rooms key={i} room={room} />
-        ))}
+        {listRooms.length > 0 ? (
+          listRooms.map((room, i) => <Rooms key={i} room={room} />)
+        ) : (
+          <Placeholder />
+        )}
       </div>
     </>
   );
