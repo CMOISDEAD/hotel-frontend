@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Home } from "./routes/Home.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Reservations } from "./routes/Reservations.jsx";
-import { Rooms } from "./routes/Rooms.jsx";
-import { Clients } from "./routes/Clients.jsx";
-import { Beds } from "./routes/Beds.jsx";
+import { Home } from "./routes/Home";
+import { Reservations } from "./routes/Reservations";
+import { Rooms } from "./routes/Rooms";
+import { Clients } from "./routes/Clients";
+import { Beds } from "./routes/Beds";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>,

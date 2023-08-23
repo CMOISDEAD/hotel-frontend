@@ -100,8 +100,8 @@ export const AddRoom = () => {
             value={room.active}
             onChange={handleChange}
           >
-            <option value="true">activo</option>
-            <option value="false">inactivo</option>
+            <option value={true}>activo</option>
+            <option value={false}>inactivo</option>
           </select>
         </div>
         <button
