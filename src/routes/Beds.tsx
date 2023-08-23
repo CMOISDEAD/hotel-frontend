@@ -1,5 +1,5 @@
 import { BedsViews } from "../components/beds/BedsView";
-import { Layout } from "../layouts/Layout";
+import { Layout } from "../components/layouts/Layout";
 
 export const Beds = () => {
   return (

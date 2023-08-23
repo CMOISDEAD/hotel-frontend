@@ -1,5 +1,5 @@
 import { ReservationsView } from "../components/reservations/ReservationsView";
-import { Layout } from "../layouts/Layout";
+import { Layout } from "../components/layouts/Layout";
 
 export const Reservations = () => {
   return (
