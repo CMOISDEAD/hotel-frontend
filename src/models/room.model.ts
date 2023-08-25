@@ -1,7 +1,7 @@
-import { Bed } from "./beds.model";
+import { BedModel } from "./beds.model";
 
-export interface Room {
-  id: string;
+export interface RoomModel {
+  id?: string;
   number: number;
   description: string;
   capacity: number;
@@ -9,5 +9,7 @@ export interface Room {
   image: string;
   status: statusEnum;
   aviable: boolean;
-  beds: Bed[];
+  beds: {
+    create: BedModel[];
+  };
 }

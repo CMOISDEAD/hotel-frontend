@@ -3,21 +3,31 @@ import useHotelStore from "../../store/store";
 import { Rooms } from "./Rooms";
 import { RoomsFilter } from "./RoomsFilter";
 import { Placeholder } from "./Placeholder";
+import { RoomModel } from "../../models/room.model";
+import { statusEnum } from "../../types/enums";
 
 export const RoomsView = () => {
   const [active, setActive] = useState("all");
-  const [listRooms, setListRooms] = useState([]);
+  const [listRooms, setListRooms] = useState<RoomModel[]>([]);
   const rooms = useHotelStore((state) => state.rooms);
 
   useEffect(() => {
     setListRooms(rooms);
   }, [rooms]);
 
-  const handleFilter = (e) => {
+  const handleFilter = (e: any) => {
     const name = e.target.dataset.name;
     setActive(name);
     if (name === "all") {
       setListRooms(rooms);
+    } else if (name === "ocupado") {
+      const filter = rooms.filter(
+        (room) =>
+          room.status === statusEnum.occupied ||
+          room.status === statusEnum.maintenance ||
+          room.status === statusEnum.cleaning,
+      );
+      setListRooms(filter);
     } else {
       const filter = rooms.filter((room) => room.status === name);
       setListRooms(filter);

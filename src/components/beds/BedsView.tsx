@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import useHotelStore from "../../store/store";
+import { BedModel } from "../../models/beds.model";
 import { AddBed } from "./addBed";
 
 export const BedsViews = () => {
-  const [bedsList, setBedsList] = useState([]);
+  const [bedsList, setBedsList] = useState<BedModel[]>([]);
   const beds = useHotelStore((state) => state.beds);
 
   useEffect(() => {
@@ -35,10 +36,10 @@ export const BedsViews = () => {
             </tr>
           </thead>
           <tbody>
-            {bedsList.map(({ id, type, place, status, active }) => (
+            {bedsList.map(({ id, type, roomId, status, aviable }) => (
               <tr
                 className={`${
-                  active !== true
+                  aviable !== true
                     ? "bg-warning/25 hover:bg-warning/50"
                     : "hover:bg-base-200"
                 } cursor-pointer transition-colors`}
@@ -46,7 +47,7 @@ export const BedsViews = () => {
               >
                 <th>{id}</th>
                 <td>{type}</td>
-                <td>{place}</td>
+                <td>{roomId}</td>
                 <td>{status}</td>
               </tr>
             ))}

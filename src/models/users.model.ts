@@ -1,7 +1,8 @@
 import { Reservation } from "./reservation.model";
 
-export interface Client {
+export interface User {
   id: string;
+  role: roleEnum;
   name: string;
   lastname: string;
   email: string;

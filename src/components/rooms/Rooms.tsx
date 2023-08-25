@@ -2,9 +2,14 @@ import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { IoPricetagOutline } from "react-icons/io5";
 import { BsPeople } from "react-icons/bs";
 import { RoomsModal } from "./RoomsModal";
+import { RoomModel } from "../../models/room.model";
 
-export const Rooms = ({ room }) => {
-  const { id, number, description, capacity, price, photo, status, active } =
+type Props = {
+  room: RoomModel;
+};
+
+export const Rooms = ({ room }: Props) => {
+  const { id, number, description, capacity, price, image, status, aviable } =
     room;
 
   const handleModal = () => {
@@ -15,7 +20,11 @@ export const Rooms = ({ room }) => {
     <>
       <div className="card border border-base-200 shadow-xl" key={id}>
         <figure>
-          <img src={photo} alt={number} className="h-72 w-full object-cover" />
+          <img
+            src={image}
+            alt={`${number} image`}
+            className="h-72 w-full object-cover"
+          />
         </figure>
         <div className="card-body">
           <h2 className="card-title">{number}</h2>
@@ -32,7 +41,7 @@ export const Rooms = ({ room }) => {
               {price} $
             </li>
             <li className="flex content-center items-center gap-2">
-              {active ? (
+              {aviable ? (
                 <AiOutlineCheckCircle className="text-green-600" />
               ) : (
                 <AiOutlineCloseCircle className="text-red-500" />
@@ -44,7 +53,7 @@ export const Rooms = ({ room }) => {
             <button className="btn btn-secondary" onClick={handleModal}>
               Detalles
             </button>
-            <button className="btn btn-primary" disabled={!active}>
+            <button className="btn btn-primary" disabled={!aviable}>
               Reservar
             </button>
           </div>

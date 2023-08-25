@@ -1,14 +1,21 @@
 import { create } from "zustand";
+import { BedModel } from "../models/beds.model";
+import { Room } from "../models/room.model";
+import { User } from "../models/users.model";
+import { Reservation } from "../models/reservation.model";
 
-const useHotelStore = create((set) => ({
+interface HotelStore {
+  beds: BedModel[];
+  rooms: Room[];
+  users: User[];
+  reservations: Reservation[];
+}
+
+const useHotelStore = create<HotelStore>((set) => ({
   beds: [],
   rooms: [],
-  clients: [],
+  users: [],
   reservations: [],
-  setBeds: (beds) => set({ beds }),
-  setRooms: (rooms) => set({ rooms }),
-  setClients: (clients) => set({ clients }),
-  setReservations: (reservations) => set({ reservations }),
 }));
 
 export default useHotelStore;

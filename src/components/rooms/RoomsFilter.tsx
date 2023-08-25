@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { AddRoom } from "./AddRoom";
 
 const stateList = [
@@ -6,7 +7,13 @@ const stateList = [
   { name: "ocupado", title: "Ocupados/Cerrados" },
 ];
 
-export const RoomsFilter = ({ filter, active, count }) => {
+type Props = {
+  filter: MouseEventHandler<HTMLAnchorElement>;
+  active: string;
+  count: number;
+};
+
+export const RoomsFilter = ({ filter, active, count }: Props) => {
   return (
     <div className="flex flex-wrap gap-2">
       <div className="tabs-boxed tabs flex flex-grow content-center">

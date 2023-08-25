@@ -1,33 +1,40 @@
-import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import React, { useState } from "react";
 import useHotelStore from "../../store/store";
+import { BedModel } from "../../models/beds.model";
+import { statusEnum } from "../../types/enums";
+import axios from "axios";
 
 export const AddBed = () => {
-  const [bed, setBed] = useState({
-    id: "",
+  const [room, setRoom] = useState("");
+  const [bed, setBed] = useState<BedModel>({
     type: "sencilla",
-    roomID: "",
-    status: "disponible",
-    active: true,
+    status: statusEnum.aviable,
+    aviable: true,
   });
 
-  const handleChange = (e) => {
+  const handleChangeRoom = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRoom(e.target.value);
+    const place = useHotelStore
+      .getState()
+      .rooms.find((room) => room.id === e.target.value);
+    setBed({
+      ...bed,
+      room: {
+        connect: place,
+      },
+    });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setBed({ ...bed, [name]: value });
   };
 
-  const handleAdd = () => {
-    if (!bed.type && !bed.roomID && !bed.status) return;
-    const beds = JSON.parse(localStorage.getItem("beds")) || [];
-    beds.push({
-      ...bed,
-      id: uuidv4(),
-      place: useHotelStore
-        .getState()
-        .rooms.filter((room) => room.id === bed.roomID)[0].number,
-    });
-    useHotelStore.setState({ beds });
-    localStorage.setItem("beds", JSON.stringify(beds));
+  const handleAdd = async () => {
+    if (!bed.type && !bed.roomId && !bed.status) return;
+    await axios.post(`${import.meta.env.VITE_API_URL}/beds`, bed);
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/beds`);
+    useHotelStore.setState({ beds: data });
   };
 
   return (
@@ -54,9 +61,9 @@ export const AddBed = () => {
           </label>
           <select
             className="select select-bordered w-full"
-            name="roomID"
-            value={bed.roomID}
-            onChange={handleChange}
+            name="room"
+            value={room}
+            onChange={handleChangeRoom}
           >
             <option value="" disabled>
               select a room
@@ -78,10 +85,10 @@ export const AddBed = () => {
             value={bed.status}
             onChange={handleChange}
           >
-            <option value="disponible">Disponible</option>
-            <option value="ocupado">Ocupado</option>
-            <option value="mantenimiento">Mantenimiento</option>
-            <option value="limpieza">Limpieza</option>
+            <option value={statusEnum.aviable}>Disponible</option>
+            <option value={statusEnum.occupied}>Ocupado</option>
+            <option value={statusEnum.maintenance}>Mantenimiento</option>
+            <option value={statusEnum.cleaning}>Limpieza</option>
           </select>
         </div>
         <div className="form-control w-full">
@@ -90,8 +97,8 @@ export const AddBed = () => {
           </label>
           <select
             className="select select-bordered w-full"
-            name="active"
-            value={bed.active}
+            name="aviable"
+            value={bed.aviable.toString()}
             onChange={handleChange}
           >
             <option value="true">activo</option>
@@ -101,7 +108,7 @@ export const AddBed = () => {
         <button
           className="btn btn-primary mt-4 w-full"
           onClick={handleAdd}
-          disabled={bed.roomID !== "" ? false : true}
+          disabled={room ? false : true}
         >
           Agregar
         </button>

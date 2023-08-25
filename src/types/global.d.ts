@@ -7,4 +7,8 @@ declare global {
     maintenance = "mantenimiento",
     cleaning = "limpieza",
   }
+  enum roleEnum {
+    admin = "admin",
+    client = "client",
+  }
 }
