@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { AddUser } from "./AddUser";
-import useHotelStore from "../../store/store";
-import { UserModel } from "../../models/users.model";
 import { IoTrashOutline } from "react-icons/io5";
-import { Header } from "../Header";
+import { Link } from "react-router-dom";
+
+import { UserModel } from "../../models/users.model";
+import useHotelStore from "../../store/store";
+import { AddUser } from "./AddUser";
 
 export const UsersView = () => {
   const [userList, setUsersList] = useState<UserModel[]>([]);
@@ -23,7 +24,6 @@ export const UsersView = () => {
 
   return (
     <>
-      <Header content="Usuarios" />
       <div className="overflow-x-auto">
         <table className="table table-fixed">
           <thead>
@@ -59,6 +59,11 @@ export const UsersView = () => {
                   <td>{`${user.name} ${user.lastname}`}</td>
                   <td>{user.country}</td>
                   <td>{user.email}</td>
+                  <td>
+                    <Link to={`/usuarios/${user.id}`}>
+                      <button className="btn btn-ghost">detalles</button>
+                    </Link>
+                  </td>
                 </tr>
               ))
             ) : (

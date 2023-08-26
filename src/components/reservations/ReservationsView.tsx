@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
-import useHotelStore from "../../store/store";
-import moment from "moment";
-import { AddReservation } from "./AddReservation";
-import { ReservationModel } from "../../models/reservation.model";
-import { IoTrashOutline } from "react-icons/io5";
 import axios from "axios";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { IoTrashOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+
+import { ReservationModel } from "../../models/reservation.model";
+import useHotelStore from "../../store/store";
 import checkStore from "../../utils/checkStore";
-import { Header } from "../Header";
+import { AddReservation } from "./AddReservation";
 
 export const ReservationsView = () => {
   const [reservationsList, setReservationsList] = useState<ReservationModel[]>(
@@ -29,7 +30,6 @@ export const ReservationsView = () => {
 
   return (
     <>
-      <Header content="Reservaciones" />
       <div className="overflow-x-auto">
         <table className="table table-fixed">
           <thead>
@@ -89,6 +89,11 @@ export const ReservationsView = () => {
                     </span>
                   </td>
                   <td>Habitacion {reservation.room.number}</td>
+                  <td>
+                    <Link to={`/reservaciones/${reservation.id}`}>
+                      <button className="btn btn-ghost">detalles</button>
+                    </Link>
+                  </td>
                 </tr>
               ))
             ) : (

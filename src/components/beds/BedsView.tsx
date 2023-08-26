@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
-import useHotelStore from "../../store/store";
-import { BedModel } from "../../models/beds.model";
-import { AddBed } from "./addBed";
+import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+
+import { BedModel } from "../../models/beds.model";
+import useHotelStore from "../../store/store";
 import checkStore from "../../utils/checkStore";
-import { Header } from "../Header";
+import { AddBed } from "./addBed";
 
 export const BedsViews = () => {
   const [bedsList, setBedsList] = useState<BedModel[]>([]);
@@ -26,7 +27,6 @@ export const BedsViews = () => {
 
   return (
     <>
-      <Header content="Camas" />
       <div className="overflow-x-auto">
         <table className="table table-fixed">
           <thead>
@@ -66,6 +66,11 @@ export const BedsViews = () => {
                   <td>{type}</td>
                   <td>{room ? `Habitacion ${room!.number}` : "Almacen"}</td>
                   <td>{status}</td>
+                  <td>
+                    <Link to={`/camas/${id}`}>
+                      <button className="btn btn-ghost">Detalles</button>
+                    </Link>
+                  </td>
                 </tr>
               ))
             ) : (
@@ -77,8 +82,8 @@ export const BedsViews = () => {
             )}
           </tbody>
         </table>
+        <AddBed />
       </div>
-      <AddBed />
     </>
   );
 };

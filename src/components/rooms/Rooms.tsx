@@ -1,9 +1,11 @@
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
-import { IoPricetagOutline } from "react-icons/io5";
-import { BsPeople } from "react-icons/bs";
 import { BiBed } from "react-icons/bi";
-import { RoomsModal } from "./RoomsModal";
+import { BsPeople } from "react-icons/bs";
+import { IoPricetagOutline } from "react-icons/io5";
+
 import { RoomModel } from "../../models/room.model";
+import { EditRoom } from "./EditRoom";
+import { RoomsModal } from "./RoomsModal";
 
 type Props = {
   room: RoomModel;
@@ -23,7 +25,11 @@ export const Rooms = ({ room }: Props) => {
   }: RoomModel = room;
 
   const handleModal = () => {
-    window[id].showModal();
+    window[`detailsRoom_${id}`].showModal();
+  };
+
+  const handleEdit = () => {
+    window[`editRoom_${id}`].showModal();
   };
 
   return (
@@ -76,6 +82,9 @@ export const Rooms = ({ room }: Props) => {
             </li>
           </ul>
           <div className="card-actions justify-end">
+            <button className="btn btn-secondary" onClick={handleEdit}>
+              Editar
+            </button>
             <button className="btn btn-secondary" onClick={handleModal}>
               Detalles
             </button>
@@ -85,7 +94,8 @@ export const Rooms = ({ room }: Props) => {
           </div>
         </div>
       </div>
-      <RoomsModal id={id!} room={room} />
+      <RoomsModal id={`detailsRoom_${id}`} room={room} />
+      <EditRoom id={`editRoom_${id}`} oldRoom={room} />
     </>
   );
 };

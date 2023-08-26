@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import useHotelStore from "../../store/store";
-import { BedModel } from "../../models/beds.model";
-import { statusEnum } from "../../types/enums";
 import axios from "axios";
+import React, { useState } from "react";
+
+import { BedModel } from "../../models/beds.model";
+import useHotelStore from "../../store/store";
+import { statusEnum } from "../../types/enums";
 import checkStore from "../../utils/checkStore";
 
 export const AddBed = () => {
@@ -28,6 +29,13 @@ export const AddBed = () => {
     });
   };
 
+  const checkStatus = async () => {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/rooms/${room}`,
+    );
+    setBed({ ...bed, aviable: data.aviable, status: data.status });
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setBed({ ...bed, [name]: value });
@@ -35,6 +43,7 @@ export const AddBed = () => {
 
   const handleAdd = async () => {
     if (!bed.type && !bed.roomId && !bed.status) return;
+    await checkStatus();
     await axios.post(`${import.meta.env.VITE_API_URL}/beds`, bed);
     checkStore();
   };

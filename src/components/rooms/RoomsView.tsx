@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+
+import { RoomModel } from "../../models/room.model";
 import useHotelStore from "../../store/store";
+import { statusEnum } from "../../types/enums";
+import { Placeholder } from "./Placeholder";
 import { Rooms } from "./Rooms";
 import { RoomsFilter } from "./RoomsFilter";
-import { Placeholder } from "./Placeholder";
-import { RoomModel } from "../../models/room.model";
-import { statusEnum } from "../../types/enums";
-import { Header } from "../Header";
 
 export const RoomsView = () => {
   const [active, setActive] = useState("all");
@@ -37,7 +37,6 @@ export const RoomsView = () => {
 
   return (
     <>
-      <Header content="Habitaciones" />
       <RoomsFilter
         filter={handleFilter}
         active={active}

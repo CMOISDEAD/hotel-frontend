@@ -1,5 +1,6 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
+
 import { RoomModel } from "../../models/room.model";
 import { statusEnum } from "../../types/enums";
 import checkStore from "../../utils/checkStore";
@@ -81,6 +82,19 @@ export const AddRoom = () => {
             onChange={handleChange}
           />
         </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Agrega la capacidad</span>
+          </label>
+          <input
+            type="number"
+            name="capacity"
+            placeholder="2"
+            className="input input-bordered w-full"
+            onChange={handleChange}
+          />
+        </div>
+
         <div className="form-control w-full">
           <label className="label">
             <span className="label-text">Seleccionar estado</span>

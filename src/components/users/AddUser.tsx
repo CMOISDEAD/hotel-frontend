@@ -1,18 +1,21 @@
-import React, { useState } from "react";
-import { UserModel } from "../../models/users.model";
 import axios from "axios";
+import React, { useState } from "react";
+
+import { UserModel } from "../../models/users.model";
 import checkStore from "../../utils/checkStore";
 
-export const AddUser = () => {
-  const [user, setUser] = useState<UserModel>({
-    name: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    country: "",
-  });
+const placeholder = {
+  name: "",
+  lastname: "",
+  email: "",
+  phone: "",
+  address: "",
+  city: "",
+  country: "",
+};
+
+export const AddUser = ({ method = "normal", oldUser = placeholder }) => {
+  const [user, setUser] = useState<UserModel>(oldUser);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -20,7 +23,12 @@ export const AddUser = () => {
   };
 
   const handleAdd = async () => {
-    await axios.post(`${import.meta.env.VITE_API_URL}/users`, user);
+    if (method !== "normal") {
+      await axios.put(`${import.meta.env.VITE_API_URL}/users/${user.id}`, user);
+      window.location.reload();
+    } else {
+      await axios.post(`${import.meta.env.VITE_API_URL}/users`, user);
+    }
     checkStore();
   };
 
@@ -37,6 +45,7 @@ export const AddUser = () => {
             className="input input-bordered w-full"
             name="name"
             placeholder="jhon doe"
+            value={user.name}
             onChange={handleChange}
           />
         </div>
@@ -49,6 +58,7 @@ export const AddUser = () => {
             className="input input-bordered w-full"
             name="lastname"
             placeholder="Smith"
+            value={user.lastname}
             onChange={handleChange}
           />
         </div>
@@ -61,6 +71,7 @@ export const AddUser = () => {
             className="input input-bordered w-full"
             name="email"
             placeholder="jhondoe@ibm.com"
+            value={user.email}
             onChange={handleChange}
           />
         </div>
@@ -73,6 +84,7 @@ export const AddUser = () => {
             className="input input-bordered w-full"
             name="phone"
             placeholder="1234567890"
+            value={user.phone}
             onChange={handleChange}
           />
         </div>
@@ -85,6 +97,7 @@ export const AddUser = () => {
             className="input input-bordered w-full"
             name="address"
             placeholder="Calle 123"
+            value={user.address}
             onChange={handleChange}
           />
         </div>
@@ -97,6 +110,7 @@ export const AddUser = () => {
             className="input input-bordered w-full"
             name="city"
             placeholder="Cali"
+            value={user.city}
             onChange={handleChange}
           />
         </div>
@@ -109,6 +123,7 @@ export const AddUser = () => {
             className="input input-bordered w-full"
             name="country"
             placeholder="Colombia"
+            value={user.country}
             onChange={handleChange}
           />
         </div>

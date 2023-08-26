@@ -4,17 +4,16 @@ const Views = () => {
   return (
     <>
       <li>
-        <NavLink to="/reservaciones">Reservaciones</NavLink>
-      </li>
-      <li>
         <NavLink to="/cuartos">Cuartos</NavLink>
       </li>
       <li>
         <NavLink to="/camas">Camas</NavLink>
       </li>
-
       <li>
-        <NavLink to="/clientes">Clientes</NavLink>
+        <NavLink to="/usuarios">Usuarios</NavLink>
+      </li>
+      <li>
+        <NavLink to="/reservaciones">Reservaciones</NavLink>
       </li>
     </>
   );

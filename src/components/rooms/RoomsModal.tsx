@@ -1,7 +1,8 @@
 import axios from "axios";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
-import { IoPricetagOutline } from "react-icons/io5";
 import { BsPeople } from "react-icons/bs";
+import { IoPricetagOutline } from "react-icons/io5";
+
 import { RoomModel } from "../../models/room.model";
 import checkStore from "../../utils/checkStore";
 

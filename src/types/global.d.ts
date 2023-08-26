@@ -6,6 +6,8 @@ declare global {
     createUser: Object<any>;
     createReservation: Object<any>;
     createRoom: Object<any>;
+    userModal: Object<any>;
+    editRoom: Object<any>;
     showModal: Function;
   }
   enum statusEnum {

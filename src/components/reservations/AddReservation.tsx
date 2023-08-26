@@ -1,20 +1,27 @@
+import axios from "axios";
 import React, { useState } from "react";
+
 import { ReservationModel } from "../../models/reservation.model";
 import useHotelStore from "../../store/store";
-import axios from "axios";
 import checkStore from "../../utils/checkStore";
 
-export const AddReservation = () => {
+const placeholder = {
+  user: { connect: {} },
+  room: { connect: {} },
+  dateIn: "",
+  dateOut: "",
+  status: "pendiente",
+  price: 0,
+};
+
+export const AddReservation = ({
+  method = "normal",
+  oldReservation = placeholder,
+}) => {
   const [userID, setUserID] = useState("");
   const [roomID, setRoomID] = useState("");
-  const [reservation, setReservation] = useState<ReservationModel>({
-    user: { connect: {} },
-    room: { connect: {} },
-    dateIn: "",
-    dateOut: "",
-    status: "pendiente",
-    price: 0,
-  });
+  const [reservation, setReservation] =
+    useState<ReservationModel>(oldReservation);
 
   const handleChangeUser = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
@@ -41,10 +48,18 @@ export const AddReservation = () => {
   };
 
   const handleAdd = async () => {
-    await axios.post(
-      `${import.meta.env.VITE_API_URL}/reservations`,
-      reservation,
-    );
+    if (method !== "normal") {
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/reservations/${reservation.id}`,
+        reservation,
+      );
+      window.location.reload();
+    } else {
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/reservations`,
+        reservation,
+      );
+    }
     checkStore();
   };
 
@@ -105,6 +120,7 @@ export const AddReservation = () => {
             type="date"
             name="dateIn"
             className="input input-bordered w-full"
+            value={reservation.dateIn}
             onChange={handleChange}
           />
         </div>
@@ -116,6 +132,7 @@ export const AddReservation = () => {
             type="date"
             name="dateOut"
             className="input input-bordered w-full"
+            value={reservation.dateOut}
             onChange={handleChange}
           />
         </div>
@@ -124,8 +141,8 @@ export const AddReservation = () => {
           className="btn btn-primary mt-4 w-full"
           onClick={handleAdd}
           disabled={
-            !reservation.user.connect.id ||
-            !reservation.room.connect.id ||
+            !reservation.user.connect?.id ||
+            !reservation.room.connect?.id ||
             !reservation.dateIn ||
             !reservation.dateOut
           }
