@@ -8,12 +8,13 @@ import checkStore from "../../utils/checkStore";
 
 type Props = {
   id: string;
+  ogID: string;
   room: RoomModel;
 };
 
-export const RoomsModal = ({ id, room }: Props) => {
+export const RoomsModal = ({ id, ogID, room }: Props) => {
   const handleDelete = async () => {
-    await axios.delete(`${import.meta.env.VITE_API_URL}/rooms/${id}`);
+    await axios.delete(`${import.meta.env.VITE_API_URL}/rooms/${ogID}`);
     checkStore();
   };
 

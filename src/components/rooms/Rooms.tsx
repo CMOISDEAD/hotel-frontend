@@ -94,7 +94,7 @@ export const Rooms = ({ room }: Props) => {
           </div>
         </div>
       </div>
-      <RoomsModal id={`detailsRoom_${id}`} room={room} />
+      <RoomsModal id={`detailsRoom_${id}`} ogID={id} room={room} />
       <EditRoom id={`editRoom_${id}`} oldRoom={room} />
     </>
   );
