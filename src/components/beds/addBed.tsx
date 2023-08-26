@@ -3,6 +3,7 @@ import useHotelStore from "../../store/store";
 import { BedModel } from "../../models/beds.model";
 import { statusEnum } from "../../types/enums";
 import axios from "axios";
+import checkStore from "../../utils/checkStore";
 
 export const AddBed = () => {
   const [room, setRoom] = useState("");
@@ -17,6 +18,8 @@ export const AddBed = () => {
     const place = useHotelStore
       .getState()
       .rooms.find((room) => room.id === e.target.value);
+    delete place.beds;
+    delete place.reservations;
     setBed({
       ...bed,
       room: {
@@ -33,8 +36,7 @@ export const AddBed = () => {
   const handleAdd = async () => {
     if (!bed.type && !bed.roomId && !bed.status) return;
     await axios.post(`${import.meta.env.VITE_API_URL}/beds`, bed);
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/beds`);
-    useHotelStore.setState({ beds: data });
+    checkStore();
   };
 
   return (

@@ -1,9 +1,10 @@
 import { Layout } from "../components/layouts/Layout";
+import { UsersView } from "../components/users/UsersView";
 
 export const Users = () => {
   return (
     <Layout>
-      <h5 className="my-2 text-xl font-bold">Users</h5>
+      <UsersView />
     </Layout>
   );
 };

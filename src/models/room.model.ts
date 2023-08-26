@@ -1,4 +1,5 @@
 import { BedModel } from "./beds.model";
+import { ReservationModel } from "./reservation.model";
 
 export interface RoomModel {
   id?: string;
@@ -9,7 +10,6 @@ export interface RoomModel {
   image: string;
   status: statusEnum;
   aviable: boolean;
-  beds: {
-    create: BedModel[];
-  };
+  beds?: BedModel[];
+  reservations?: ReservationModel[];
 }

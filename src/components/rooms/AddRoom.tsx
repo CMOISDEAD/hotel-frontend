@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import useHotelStore from "../../store/store";
 import { RoomModel } from "../../models/room.model";
 import { statusEnum } from "../../types/enums";
+import checkStore from "../../utils/checkStore";
 
 export const AddRoom = () => {
   const [room, setRoom] = useState<RoomModel>({
     number: 0,
     price: 0,
     image: "",
-    beds: {
-      create: [],
-    },
     description: "",
     capacity: 0,
     status: statusEnum.aviable,
@@ -30,8 +27,7 @@ export const AddRoom = () => {
   const handleAdd = async () => {
     if (!room.image && !room.number && !room.price) return;
     await axios.post(`${import.meta.env.VITE_API_URL}/rooms`, room);
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/rooms`);
-    useHotelStore.setState({ rooms: data });
+    checkStore();
   };
 
   return (

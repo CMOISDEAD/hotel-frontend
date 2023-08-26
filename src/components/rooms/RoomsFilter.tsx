@@ -16,7 +16,13 @@ type Props = {
 export const RoomsFilter = ({ filter, active, count }: Props) => {
   return (
     <div className="flex flex-wrap gap-2">
-      <div className="tabs-boxed tabs flex flex-grow content-center">
+      <button
+        className="btn btn-circle btn-primary"
+        onClick={() => window.createRoom.showModal()}
+      >
+        +
+      </button>
+      <div className="tabs tabs-boxed flex flex-grow content-center">
         {stateList.map(({ name, title }, i) => (
           <a
             key={i}
@@ -30,12 +36,6 @@ export const RoomsFilter = ({ filter, active, count }: Props) => {
           </a>
         ))}
       </div>
-      <button
-        className="btn btn-primary w-full sm:w-auto"
-        onClick={() => window.createRoom.showModal()}
-      >
-        +
-      </button>
       <AddRoom />
     </div>
   );

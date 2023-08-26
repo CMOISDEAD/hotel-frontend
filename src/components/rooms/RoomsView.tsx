@@ -5,6 +5,7 @@ import { RoomsFilter } from "./RoomsFilter";
 import { Placeholder } from "./Placeholder";
 import { RoomModel } from "../../models/room.model";
 import { statusEnum } from "../../types/enums";
+import { Header } from "../Header";
 
 export const RoomsView = () => {
   const [active, setActive] = useState("all");
@@ -36,7 +37,7 @@ export const RoomsView = () => {
 
   return (
     <>
-      <h5 className="my-2 text-xl font-bold">Cuartos</h5>
+      <Header content="Habitaciones" />
       <RoomsFilter
         filter={handleFilter}
         active={active}

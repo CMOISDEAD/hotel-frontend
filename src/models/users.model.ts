@@ -1,8 +1,8 @@
-import { Reservation } from "./reservation.model";
+import { ReservationModel } from "./reservation.model";
 
-export interface User {
-  id: string;
-  role: roleEnum;
+export interface UserModel {
+  id?: string;
+  role?: roleEnum;
   name: string;
   lastname: string;
   email: string;
@@ -10,5 +10,5 @@ export interface User {
   address: string;
   city: string;
   country: string;
-  reservation: Reservation[];
+  reservations?: ReservationModel[];
 }

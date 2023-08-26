@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import { BedModel } from "../models/beds.model";
 import { Room } from "../models/room.model";
-import { User } from "../models/users.model";
-import { Reservation } from "../models/reservation.model";
+import { UserModel } from "../models/users.model";
+import { ReservationModel } from "../models/reservation.model";
 
 interface HotelStore {
   beds: BedModel[];
   rooms: Room[];
-  users: User[];
-  reservations: Reservation[];
+  users: UserModel[];
+  reservations: ReservationModel[];
 }
 
 const useHotelStore = create<HotelStore>((set) => ({

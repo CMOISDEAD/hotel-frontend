@@ -1,6 +1,7 @@
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { IoPricetagOutline } from "react-icons/io5";
 import { BsPeople } from "react-icons/bs";
+import { BiBed } from "react-icons/bi";
 import { RoomsModal } from "./RoomsModal";
 import { RoomModel } from "../../models/room.model";
 
@@ -9,8 +10,17 @@ type Props = {
 };
 
 export const Rooms = ({ room }: Props) => {
-  const { id, number, description, capacity, price, image, status, aviable } =
-    room;
+  const {
+    id,
+    number,
+    description,
+    capacity,
+    price,
+    image,
+    status,
+    aviable,
+    beds,
+  }: RoomModel = room;
 
   const handleModal = () => {
     window[id].showModal();
@@ -27,26 +37,42 @@ export const Rooms = ({ room }: Props) => {
           />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{number}</h2>
+          <h2 className="card-title">Habitacion {number}</h2>
           <ul>
             <li className="flex content-center items-center gap-2">
               <p className="truncate">{description}</p>
             </li>
             <li className="flex content-center items-center gap-2">
-              <BsPeople />
+              <span className="inline-flex content-center items-center gap-1">
+                <BsPeople />
+                Capacidad:
+              </span>
               {capacity}
             </li>
             <li className="flex content-center items-center gap-2">
-              <IoPricetagOutline />
+              <span className="inline-flex content-center items-center gap-1">
+                <IoPricetagOutline />
+                Precio:
+              </span>
               {price} $
             </li>
             <li className="flex content-center items-center gap-2">
-              {aviable ? (
-                <AiOutlineCheckCircle className="text-green-600" />
-              ) : (
-                <AiOutlineCloseCircle className="text-red-500" />
-              )}
+              <span className="inline-flex content-center items-center gap-1">
+                {aviable ? (
+                  <AiOutlineCheckCircle className="text-green-600" />
+                ) : (
+                  <AiOutlineCloseCircle className="text-red-500" />
+                )}
+                Estado:
+              </span>
               {status}
+            </li>
+            <li className="flex content-center items-center gap-2">
+              <span className="inline-flex content-center items-center gap-1">
+                <BiBed />
+                Capacidades de camas:
+              </span>
+              {beds && beds.length > 0 ? beds.length : 0}
             </li>
           </ul>
           <div className="card-actions justify-end">
@@ -59,7 +85,7 @@ export const Rooms = ({ room }: Props) => {
           </div>
         </div>
       </div>
-      <RoomsModal id={id} room={room} />
+      <RoomsModal id={id!} room={room} />
     </>
   );
 };
