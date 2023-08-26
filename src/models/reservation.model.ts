@@ -1,12 +1,14 @@
-import { Client } from "./client.model";
-import { Room } from "./room.model";
+import { UserModel } from "./users.model";
+import { RoomModel } from "./room.model";
 
-export interface Reservation {
+export interface ReservationModel {
   id: string;
-  room: Room;
-  client: Client;
-  dateIn: Date;
-  dateOut: Date;
+  room: { connect: RoomModel } | RoomModel;
+  roomId?: string;
+  user: { connect: UserModel } | UserModel;
+  userId?: string;
+  dateIn: String;
+  dateOut: String;
   price: number;
   status: "pendiente" | "pagada" | "cancelada";
 }

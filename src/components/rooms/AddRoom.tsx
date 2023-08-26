@@ -1,26 +1,34 @@
-import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
-import useHotelStore from "../../store/store";
+import axios from "axios";
+import React, { useState } from "react";
+
+import { RoomModel } from "../../models/room.model";
+import { statusEnum } from "../../types/enums";
+import checkStore from "../../utils/checkStore";
 
 export const AddRoom = () => {
-  const [room, setRoom] = useState({
+  const [room, setRoom] = useState<RoomModel>({
+    number: 0,
+    price: 0,
+    image: "",
     description: "",
     capacity: 0,
-    status: "disponible",
-    active: true,
+    status: statusEnum.aviable,
+    aviable: true,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { name, value } = e.target;
     setRoom({ ...room, [name]: value });
   };
 
-  const handleAdd = () => {
-    if (!room.photo && !room.number && !room.price) return;
-    const rooms = JSON.parse(localStorage.getItem("rooms")) || [];
-    rooms.push({ ...room, id: uuidv4() });
-    useHotelStore.setState({ rooms });
-    localStorage.setItem("rooms", JSON.stringify(rooms));
+  const handleAdd = async () => {
+    if (!room.image && !room.number && !room.price) return;
+    await axios.post(`${import.meta.env.VITE_API_URL}/rooms`, room);
+    checkStore();
   };
 
   return (
@@ -33,7 +41,7 @@ export const AddRoom = () => {
           </label>
           <input
             type="text"
-            name="photo"
+            name="image"
             placeholder="https://image.com"
             className="input input-bordered w-full"
             onChange={handleChange}
@@ -44,7 +52,7 @@ export const AddRoom = () => {
             <span className="label-text">Numero del cuarto</span>
           </label>
           <input
-            type="text"
+            type="number"
             name="number"
             placeholder="217"
             className="input input-bordered w-full"
@@ -76,6 +84,19 @@ export const AddRoom = () => {
         </div>
         <div className="form-control w-full">
           <label className="label">
+            <span className="label-text">Agrega la capacidad</span>
+          </label>
+          <input
+            type="number"
+            name="capacity"
+            placeholder="2"
+            className="input input-bordered w-full"
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
             <span className="label-text">Seleccionar estado</span>
           </label>
           <select
@@ -84,10 +105,10 @@ export const AddRoom = () => {
             value={room.status}
             onChange={handleChange}
           >
-            <option value="disponible">Disponible</option>
-            <option value="ocupado">Ocupado</option>
-            <option value="mantenimiento">Mantenimiento</option>
-            <option value="limpieza">Limpieza</option>
+            <option value={statusEnum.aviable}>Disponible</option>
+            <option value={statusEnum.occupied}>Ocupado</option>
+            <option value={statusEnum.maintenance}>Mantenimiento</option>
+            <option value={statusEnum.cleaning}>Limpieza</option>
           </select>
         </div>
         <div className="form-control w-full">
@@ -96,19 +117,19 @@ export const AddRoom = () => {
           </label>
           <select
             className="select select-bordered w-full"
-            name="active"
-            value={room.active}
+            name="aviable"
+            value={`${room.aviable}`}
             onChange={handleChange}
           >
-            <option value={true}>activo</option>
-            <option value={false}>inactivo</option>
+            <option value="true">activo</option>
+            <option value="false">inactivo</option>
           </select>
         </div>
         <button
           className="btn btn-primary mt-4 w-full"
           onClick={handleAdd}
           disabled={
-            !room.number || !room.description || !room.photo || !room.price
+            !room.number || !room.description || !room.image || !room.price
           }
         >
           Agregar

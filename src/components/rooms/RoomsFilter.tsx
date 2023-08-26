@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { AddRoom } from "./AddRoom";
 
 const stateList = [
@@ -6,10 +7,22 @@ const stateList = [
   { name: "ocupado", title: "Ocupados/Cerrados" },
 ];
 
-export const RoomsFilter = ({ filter, active, count }) => {
+type Props = {
+  filter: MouseEventHandler<HTMLAnchorElement>;
+  active: string;
+  count: number;
+};
+
+export const RoomsFilter = ({ filter, active, count }: Props) => {
   return (
     <div className="flex flex-wrap gap-2">
-      <div className="tabs-boxed tabs flex flex-grow content-center">
+      <button
+        className="btn btn-circle btn-primary"
+        onClick={() => window.createRoom.showModal()}
+      >
+        +
+      </button>
+      <div className="tabs tabs-boxed flex flex-grow content-center">
         {stateList.map(({ name, title }, i) => (
           <a
             key={i}
@@ -23,12 +36,6 @@ export const RoomsFilter = ({ filter, active, count }) => {
           </a>
         ))}
       </div>
-      <button
-        className="btn btn-primary w-full sm:w-auto"
-        onClick={() => window.createRoom.showModal()}
-      >
-        +
-      </button>
       <AddRoom />
     </div>
   );

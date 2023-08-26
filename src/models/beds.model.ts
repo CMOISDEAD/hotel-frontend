@@ -1,7 +1,14 @@
-export interface Bed {
-  id: string;
+import { RoomModel } from "./room.model";
+
+export interface BedModel {
+  id?: string;
   type: string;
-  place: number;
+  room?:
+    | {
+        connect: RoomModel;
+      }
+    | RoomModel;
+  roomId?: string;
   status: statusEnum;
-  aviabe: boolean;
+  aviable: boolean;
 }

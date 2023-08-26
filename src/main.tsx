@@ -1,38 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Home } from "./routes/Home";
-import { Reservations } from "./routes/Reservations";
-import { Rooms } from "./routes/Rooms";
-import { Clients } from "./routes/Clients";
-import { Beds } from "./routes/Beds";
-import "./index.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/reservaciones",
-    element: <Reservations />,
-  },
-  {
-    path: "/cuartos",
-    element: <Rooms />,
-  },
-  {
-    path: "/camas",
-    element: <Beds />,
-  },
-  {
-    path: "/clientes",
-    element: <Clients />,
-  },
-]);
+import "./index.css";
+import { Beds } from "./routes/Beds";
+import { Home } from "./routes/Home";
+import { Rooms } from "./routes/Rooms";
+import { Reservation } from "./routes/reservations/Reservation";
+import { Reservations } from "./routes/reservations/Reservations";
+import { User } from "./routes/users/User";
+import { Users } from "./routes/users/Users";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="/cuartos" element={<Rooms />} />
+        <Route path="/camas" element={<Beds />} />
+        <Route path="/reservaciones" element={<Reservations />} />
+        <Route path="/reservaciones/:id" element={<Reservation />} />
+        <Route path="/usuarios" element={<Users />} />
+        <Route path="/usuarios/:id" element={<User />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
 );

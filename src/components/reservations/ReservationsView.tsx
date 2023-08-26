@@ -1,10 +1,18 @@
-import { useState, useEffect } from "react";
-import useHotelStore from "../../store/store";
+import axios from "axios";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { IoTrashOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+
+import { ReservationModel } from "../../models/reservation.model";
+import useHotelStore from "../../store/store";
+import checkStore from "../../utils/checkStore";
 import { AddReservation } from "./AddReservation";
 
 export const ReservationsView = () => {
-  const [reservationsList, setReservationsList] = useState([]);
+  const [reservationsList, setReservationsList] = useState<ReservationModel[]>(
+    [],
+  );
   const reservations = useHotelStore((state) => state.reservations);
 
   useEffect(() => {
@@ -12,14 +20,18 @@ export const ReservationsView = () => {
   }, [reservations]);
 
   const handleAdd = () => {
-    window.addReservation.showModal();
+    window.createReservation.showModal();
+  };
+
+  const handleDelete = async (id: string) => {
+    await axios.delete(`${import.meta.env.VITE_API_URL}/reservations/${id}`);
+    checkStore();
   };
 
   return (
     <>
-      <h5 className="my-2 text-xl font-bold">Reservaciones</h5>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table table-fixed">
           <thead>
             <tr>
               <th>
@@ -33,53 +45,64 @@ export const ReservationsView = () => {
               <th>Nombre</th>
               <th>Fecha</th>
               <th>Habitacion</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
-            {reservationsList.map((reservation, i) => (
-              <tr key={i}>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-                <td>
-                  <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img
-                          src={reservation.image}
-                          alt={`reservation ${reservation.name}`}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">{reservation.name}</div>
+            {reservationsList.length > 0 ? (
+              reservationsList.map((reservation, i) => (
+                <tr
+                  key={i}
+                  className="transition-colors hover:cursor-pointer hover:bg-base-200"
+                >
+                  <th>
+                    <button
+                      className="btn btn-error"
+                      onClick={() => handleDelete(reservation.id)}
+                    >
+                      <IoTrashOutline />
+                    </button>
+                  </th>
+                  <td>
+                    <div className="flex items-center space-x-3">
+                      <div className="font-bold">{reservation.user.name}</div>
                       <div className="text-sm opacity-50">
-                        {reservation.number}
+                        {reservation.user.lastname}
                       </div>
                     </div>
-                  </div>
+                  </td>
+                  <td>
+                    <div
+                      className="tooltip"
+                      data-tip={moment(
+                        reservation.dateOut.toString(),
+                      ).fromNow()}
+                    >
+                      {moment(reservation.dateIn.toString()).format(
+                        "DD MMM YYYY",
+                      )}
+                    </div>
+                    <br />
+                    <span className="badge badge-ghost badge-sm truncate">
+                      {moment(reservation.dateOut.toString()).format(
+                        "DD MMM YYYY",
+                      )}
+                    </span>
+                  </td>
+                  <td>Habitacion {reservation.room.number}</td>
+                  <td>
+                    <Link to={`/reservaciones/${reservation.id}`}>
+                      <button className="btn btn-ghost">detalles</button>
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className="text-center">
+                  No hay reservaciones registradas
                 </td>
-                <td>
-                  <div
-                    className="tooltip"
-                    data-tip={moment(reservation.checkIn).fromNow()}
-                  >
-                    {moment(reservation.checkIn).format("DD MMM YYYY")}
-                  </div>
-                  <br />
-                  <span className="badge badge-ghost badge-sm truncate">
-                    Dias pagados: {reservation.numberNights}
-                  </span>
-                </td>
-                <td>Habitacion {reservation.room}</td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">Detalles</button>
-                </th>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

@@ -1,5 +1,16 @@
+import { useEffect } from "react";
+import checkStore from "../../utils/checkStore";
 import { Navbar } from "../Navbar";
-export const Layout = ({ children }) => {
+
+interface Props {
+  children: React.ReactNode;
+}
+
+export const Layout = ({ children }: Props) => {
+  useEffect(() => {
+    checkStore();
+  }, []);
+
   return (
     <>
       <Navbar />
