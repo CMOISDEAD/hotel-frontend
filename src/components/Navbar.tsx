@@ -1,20 +1,49 @@
 import { NavLink } from "react-router-dom";
 
+import useHotelStore from "../store/store";
+
 const Views = () => {
+  const account = useHotelStore.getState().account;
+
   return (
     <>
-      <li>
-        <NavLink to="/cuartos">Cuartos</NavLink>
-      </li>
-      <li>
-        <NavLink to="/camas">Camas</NavLink>
-      </li>
-      <li>
-        <NavLink to="/usuarios">Usuarios</NavLink>
-      </li>
-      <li>
-        <NavLink to="/reservaciones">Reservaciones</NavLink>
-      </li>
+      {account.auth && account.role === "ADMIN" ? (
+        <>
+          <li>
+            <NavLink to="/dasboard">Dasboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cuartos">Cuartos</NavLink>
+          </li>
+          <li>
+            <NavLink to="/camas">Camas</NavLink>
+          </li>
+          <li>
+            <NavLink to="/usuarios">Usuarios</NavLink>
+          </li>
+          <li>
+            <NavLink to="/reservaciones">Reservaciones</NavLink>
+          </li>
+        </>
+      ) : account.auth ? (
+        <>
+          <li>
+            <NavLink to="/camas">Camas</NavLink>
+          </li>
+          <li>
+            <NavLink to="/logout">Logout</NavLink>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+          <li>
+            <NavLink to="/signup">Signup</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 };
