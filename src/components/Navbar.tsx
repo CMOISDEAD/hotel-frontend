@@ -1,20 +1,53 @@
 import { NavLink } from "react-router-dom";
 
+import useHotelStore from "../store/store";
+import { Avatar } from "./users/Avatar";
+
 const Views = () => {
+  const account = useHotelStore.getState().account;
+
   return (
     <>
-      <li>
-        <NavLink to="/cuartos">Cuartos</NavLink>
-      </li>
-      <li>
-        <NavLink to="/camas">Camas</NavLink>
-      </li>
-      <li>
-        <NavLink to="/usuarios">Usuarios</NavLink>
-      </li>
-      <li>
-        <NavLink to="/reservaciones">Reservaciones</NavLink>
-      </li>
+      {account.auth && account.rol === "ADMIN" ? (
+        <>
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <NavLink to="/dashboard">Dashboard</NavLink>
+            </li>
+            <li>
+              <NavLink to="/cuartos">Cuartos</NavLink>
+            </li>
+            <li>
+              <NavLink to="/camas">Camas</NavLink>
+            </li>
+            <li>
+              <NavLink to="/usuarios">Usuarios</NavLink>
+            </li>
+            <li>
+              <NavLink to="/reservaciones">Reservaciones</NavLink>
+            </li>
+          </ul>
+          <Avatar />
+        </>
+      ) : account.auth ? (
+        <>
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <NavLink to="/cuartos">Cuartos</NavLink>
+            </li>
+          </ul>
+          <Avatar />
+        </>
+      ) : (
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+          <li>
+            <NavLink to="/register">Register</NavLink>
+          </li>
+        </ul>
+      )}
     </>
   );
 };
@@ -52,9 +85,7 @@ export const Navbar = () => {
         </NavLink>
       </div>
       <div className="navbar-end hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <Views />
-        </ul>
+        <Views />
       </div>
     </div>
   );
