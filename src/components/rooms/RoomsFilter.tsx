@@ -1,4 +1,6 @@
 import { MouseEventHandler } from "react";
+
+import useHotelStore from "../../store/store";
 import { AddRoom } from "./AddRoom";
 
 const stateList = [
@@ -14,14 +16,17 @@ type Props = {
 };
 
 export const RoomsFilter = ({ filter, active, count }: Props) => {
+  const account = useHotelStore((state) => state.account);
   return (
     <div className="flex flex-wrap gap-2">
-      <button
-        className="btn btn-circle btn-primary"
-        onClick={() => window.createRoom.showModal()}
-      >
-        +
-      </button>
+      {account.rol === "ADMIN" && (
+        <button
+          className="btn btn-circle btn-primary"
+          onClick={() => window.createRoom.showModal()}
+        >
+          +
+        </button>
+      )}
       <div className="tabs tabs-boxed flex flex-grow content-center">
         {stateList.map(({ name, title }, i) => (
           <a

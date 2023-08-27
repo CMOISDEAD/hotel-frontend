@@ -4,6 +4,7 @@ import { BsPeople } from "react-icons/bs";
 import { IoPricetagOutline } from "react-icons/io5";
 
 import { RoomModel } from "../../models/room.model";
+import useHotelStore from "../../store/store";
 import { EditRoom } from "./EditRoom";
 import { RoomsModal } from "./RoomsModal";
 
@@ -23,12 +24,15 @@ export const Rooms = ({ room }: Props) => {
     aviable,
     beds,
   }: RoomModel = room;
+  const account = useHotelStore((state) => state.account);
 
   const handleModal = () => {
+    // @ts-ignore
     window[`detailsRoom_${id}`].showModal();
   };
 
   const handleEdit = () => {
+    // @ts-ignore
     window[`editRoom_${id}`].showModal();
   };
 
@@ -82,19 +86,23 @@ export const Rooms = ({ room }: Props) => {
             </li>
           </ul>
           <div className="card-actions justify-end">
-            <button className="btn btn-secondary" onClick={handleEdit}>
-              Editar
-            </button>
-            <button className="btn btn-secondary" onClick={handleModal}>
-              Detalles
-            </button>
+            {account.rol === "ADMIN" && (
+              <>
+                <button className="btn btn-secondary" onClick={handleEdit}>
+                  Editar
+                </button>
+                <button className="btn btn-secondary" onClick={handleModal}>
+                  Detalles
+                </button>
+              </>
+            )}
             <button className="btn btn-primary" disabled={!aviable}>
               Reservar
             </button>
           </div>
         </div>
       </div>
-      <RoomsModal id={`detailsRoom_${id}`} ogID={id} room={room} />
+      <RoomsModal id={`detailsRoom_${id}`} ogID={id!} room={room} />
       <EditRoom id={`editRoom_${id}`} oldRoom={room} />
     </>
   );

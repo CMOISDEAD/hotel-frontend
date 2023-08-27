@@ -12,6 +12,8 @@ const placeholder = {
   address: "",
   city: "",
   country: "",
+  username: "",
+  password: "",
 };
 
 export const AddUser = ({ method = "normal", oldUser = placeholder }) => {
@@ -59,6 +61,32 @@ export const AddUser = ({ method = "normal", oldUser = placeholder }) => {
             name="lastname"
             placeholder="Smith"
             value={user.lastname}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Nombre de usuario</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            name="username"
+            placeholder="jhondoe"
+            value={user.username}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Contraseña</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            name="password"
+            placeholder="********"
+            value={user.password}
             onChange={handleChange}
           />
         </div>

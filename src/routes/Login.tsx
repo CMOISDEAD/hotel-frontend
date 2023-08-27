@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 
 import useHotelStore from "../store/store";
 
@@ -9,6 +9,7 @@ export const Login = () => {
     username: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAccount({
@@ -20,12 +21,13 @@ export const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const data = await axios.post(
+      const { data } = await axios.post(
         `${import.meta.env.VITE_API_URL}/auth/login`,
         account,
       );
+      console.log(data);
       useHotelStore.setState({ account: { ...data, auth: true } });
-      redirect("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -74,8 +76,8 @@ export const Login = () => {
               </button>
             </form>
             <div className="divider">o</div>
-            si no tienes cuenta, puedes{" "}
-            <Link to="signup" className="link link-primary">
+            Si no tienes cuenta, puedes{" "}
+            <Link to="/register" className="link link-primary">
               registrarte.
             </Link>
           </div>

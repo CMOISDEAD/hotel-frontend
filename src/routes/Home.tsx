@@ -1,4 +1,6 @@
+import { BedsViews } from "../components/beds/BedsView";
 import { Layout } from "../components/layouts/Layout";
+import { RoomsView } from "../components/rooms/RoomsView";
 import useHotelStore from "../store/store";
 
 export const Home = () => {
@@ -26,25 +28,33 @@ export const Home = () => {
         </div>
         <div className="my-8">
           <div className="join join-vertical md:join-horizontal">
-            <select className="select select-bordered join-item w-60">
-              <option disabled selected>
+            <select
+              className="select select-bordered join-item w-60"
+              defaultValue=""
+            >
+              <option disabled value="">
                 Sede
               </option>
-              <option>Armenia</option>
-              <option>Salento</option>
-              <option>Pereira</option>
+              <option value="armenia">Armenia</option>
+              <option disabled>Salento</option>
+              <option disabled>Pereira</option>
             </select>
-            <select className="select select-bordered join-item w-60">
-              <option disabled selected>
+            <select
+              className="select select-bordered join-item w-60"
+              defaultValue=""
+            >
+              <option disabled value="">
                 Habitación
               </option>
-              {rooms.map((room) => (
-                <option key={room.id}>Habitacion {room.number}</option>
-              ))}
+              {rooms
+                .filter((room) => room.aviable)
+                .map((room) => (
+                  <option key={room.id}>Habitacion {room.number}</option>
+                ))}
             </select>
             <div className="indicator">
               <span className="indicator-item badge badge-secondary">new</span>
-              <button className="btn join-item" disabled={!account.auth}>
+              <button className="btn join-item w-60" disabled={!account.auth}>
                 Reservar
               </button>
             </div>
@@ -59,6 +69,7 @@ export const Home = () => {
           </ul>
         </div>
       </div>
+      <RoomsView />
     </Layout>
   );
 };
