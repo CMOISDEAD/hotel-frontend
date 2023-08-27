@@ -25,7 +25,6 @@ export const Login = () => {
         `${import.meta.env.VITE_API_URL}/auth/login`,
         account,
       );
-      console.log(data);
       useHotelStore.setState({ account: { ...data, auth: true } });
       navigate("/");
     } catch (error) {

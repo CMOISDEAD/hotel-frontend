@@ -1,4 +1,5 @@
-import { BedsViews } from "../components/beds/BedsView";
+import { Link } from "react-router-dom";
+
 import { Layout } from "../components/layouts/Layout";
 import { RoomsView } from "../components/rooms/RoomsView";
 import useHotelStore from "../store/store";
@@ -55,7 +56,7 @@ export const Home = () => {
             <div className="indicator">
               <span className="indicator-item badge badge-secondary">new</span>
               <button className="btn join-item w-60" disabled={!account.auth}>
-                Reservar
+                <Link to="/reservacion">Reservar</Link>
               </button>
             </div>
           </div>

@@ -7,6 +7,7 @@ import { Beds } from "./routes/Beds";
 import { Dashboard } from "./routes/Dasboard";
 import { Home } from "./routes/Home";
 import { Login } from "./routes/Login";
+import { Purchase } from "./routes/Purchase";
 import { Register } from "./routes/Register";
 import { Rooms } from "./routes/Rooms";
 import { Reservation } from "./routes/reservations/Reservation";
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/cuartos" element={<Rooms />} />
         <Route path="/camas" element={<Beds />} />
+        <Route path="/reservacion" element={<Purchase />} />
         <Route path="/reservaciones" element={<Reservations />} />
         <Route path="/reservaciones/:id" element={<Reservation />} />
         <Route path="/usuarios" element={<Users />} />
