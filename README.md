@@ -1,4 +1,4 @@
-# Hotels Cocora (Frontend)
+# Hotels (Frontend)
 
 Este es un proyecto de aplicación web desarrollado en React que te permite gestionar un hotel de forma administrativa y comercial. Está conectado a un servidor backend construido con Express.js, utiliza Prisma como ORM (Object-Relational Mapping) y una base de datos alojada en MongoDB Atlas.
 
@@ -16,17 +16,17 @@ Este es un proyecto de aplicación web desarrollado en React que te permite gest
 
 - [Node.js](https://nodejs.org/en/)
 - [npm](https://www.npmjs.com/)
-- Clonar el backend del hotel [Backend](https://github.com/CMOISDEAD/hotels-backend)
+- Clonar el backend del hotel [Backend](https://github.com/CMOISDEAD/hotel-backend)
 - Seguir los pasos de instalacion del backend.
 
-Sigue estos pasos para ejecutar localmente el proyecto Hotels Cocora:
+Sigue estos pasos para ejecutar localmente el proyecto:
 
 ```bash
 # Clona el repositorio
-git clone https://github.com/CMOISDEAD/hotels-fronted.git
+git clone https://github.com/CMOISDEAD/hotel-fronted.git
 
 # Accede al directorio del proyecto
-cd hotels-cocora
+cd hotel-frontend
 ```
 
 Asegúrate de tener Node.js y npm (o yarn) instalados en tu sistema. Luego, instala las dependencias del cliente y del servidor.
@@ -50,7 +50,7 @@ npm run dev
 
 Con esto ya se estaria ejecutando la aplicacion frontend en el puerto `5173`.
 
-Abre tu navegador web y accede a [http://localhost:5173](http://localhost:5171) para ver la aplicación Hotels Cocora en acción.
+Abre tu navegador web y accede a [http://localhost:5173](http://localhost:5171) para ver la aplicación Hotel en acción.
 
 ## Licencia
 
