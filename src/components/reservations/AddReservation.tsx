@@ -48,6 +48,8 @@ export const AddReservation = ({
   };
 
   const handleAdd = async () => {
+    console.log(reservation);
+    delete reservation.user.connect?.auth;
     if (method !== "normal") {
       await axios.put(
         `${import.meta.env.VITE_API_URL}/reservations/${reservation.id}`,

@@ -93,7 +93,7 @@ export const Purchase = () => {
       `${import.meta.env.VITE_API_URL}/reservations`,
       reservation,
     );
-    navigate(`/users/${reservation.user.connect.id}`);
+    navigate(`/usuarios/${reservation.user.connect.id}`);
   };
 
   return (
@@ -119,7 +119,10 @@ export const Purchase = () => {
         </h5>
         {currentStep === 0 ? (
           <div className="flex flex-col flex-wrap justify-center gap-4">
-            <UserForm reservation={reservation} setReservation={setReservation}/>
+            <UserForm
+              reservation={reservation}
+              setReservation={setReservation}
+            />
             <GroupButtons
               currentStep={currentStep}
               handleNextStep={handleNextStep}
